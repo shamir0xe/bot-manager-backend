@@ -1,0 +1,7 @@
+blacksheep[full]
+uvicorn
+mypy
+strawberry-graphql[asgi]
+faker
+redis_om
+
