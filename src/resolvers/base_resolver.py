@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Generic, Optional, TypeVar
+from typing import Dict, Generic, Optional, TypeVar
 
 
 T = TypeVar("T")  # Represents the target type
@@ -16,3 +16,10 @@ class BaseResolver(Generic[T], ABC):
     @abstractmethod
     def fn() -> T:
         raise NotImplementedError("Subclass must override 'fn' method")
+
+    @classmethod
+    def pack(cls) -> Dict:
+        return {
+            "resolver": cls.fn,
+            "description": cls.desc,
+        }

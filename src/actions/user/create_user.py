@@ -1,5 +1,7 @@
 from typing import Optional
 
+from src.helpers.types.status_types import StatusType
+from src.mediators.token_mediator import TokenMediator
 from src.models.user import User
 from src.finders.user_finder import UserFinder
 
@@ -14,4 +16,6 @@ class CreateUser:
             else:
                 user = User(telegram_id=telegram_id)
             user.save()
+        if not isinstance(user, User):
+            raise Exception("No such user exist")
         return user

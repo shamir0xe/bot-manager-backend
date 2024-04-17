@@ -1,7 +1,7 @@
-blacksheep[full]
+starlette
 uvicorn
 mypy
 strawberry-graphql[asgi]
 faker
 redis_om
-
+pylib-0xe

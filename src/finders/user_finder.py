@@ -1,30 +1,30 @@
-from typing import List
+from typing import List, Optional
 from redis_om import NotFoundError
 from src.models.user import User
 
 
 class UserFinder:
     @staticmethod
-    def by_id(id: str) -> User | None:
+    def by_id(id: str) -> Optional[User]:
         try:
             return User.get(id)
         except NotFoundError:
             return None
 
     @staticmethod
-    def by_telegram_id(telegram_id: str) -> User | None:
+    def by_telegram_id(telegram_id: str) -> Optional[User]:
         try:
-            return User.get(telegram_id)
+            user = User.find(User.telegram_id == telegram_id).first()
+            if isinstance(user, User):
+                return user
+            return None
         except NotFoundError:
             return None
 
     @staticmethod
     def all() -> List[User]:
         try:
-            users = User.find().all()
-            all_users = []
-            for user in users:
-                all_users += [user]
-            return all_users
-        except Exception:
+            return [User.get(id) for id in User.all_pks()]
+        except Exception as e:
+            print(e)
             return []

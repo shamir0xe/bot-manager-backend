@@ -17,8 +17,12 @@ class ServerFactory(BaseFactory):
             servers += [
                 Server(
                     address=self.faker.uri(),
+                    owner_id=self.faker.uuid4(),
                     port=self.faker.port_number(),
-                    server_ids=ServerFactory(self.count >> 1).generate(False)
+                    server_ids=[
+                        server.pk
+                        for server in ServerFactory(self.count >> 1).generate(False)
+                    ]
                     if chain
                     else [],
                 )

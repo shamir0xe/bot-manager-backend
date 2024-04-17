@@ -1,8 +1,7 @@
-import strawberry
 from src.resolvers.base_resolver import BaseResolver
 
 
-class ReverseEcho(BaseResolver[str]):
+class EchoResolver(BaseResolver[str]):
     desc = "just reverse echoing everything you say xD"
 
     @staticmethod

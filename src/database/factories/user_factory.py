@@ -1,9 +1,8 @@
-import uuid
 from dataclasses import dataclass
 from typing import List
 from faker.providers import internet
-import strawberry
-from src.api.types.user import User
+from src.database.factories.server_factory import ServerFactory
+from src.models.user import User
 from .base_factory import BaseFactory
 
 
@@ -18,10 +17,14 @@ class UserFactory(BaseFactory):
         for _ in range(self.count):
             users += [
                 User(
-                    id=strawberry.ID(uuid.uuid4().__str__()),
                     telegram_id=self.faker.ascii_email(),
                     name=self.faker.user_name(),
-                    server_ids=[],
+                    server_ids=[
+                        server.pk
+                        for server in ServerFactory(
+                            count=max(self.count >> 1, 1)
+                        ).generate()
+                    ],
                 )
             ]
         return users

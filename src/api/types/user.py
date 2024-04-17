@@ -1,7 +1,8 @@
 from __future__ import annotations
 from typing import List, Optional
 import strawberry
-from src.resolvers.user_servers import UserServers
+from src.resolvers.user_servers_resolver import UserServersResolver
+from src.resolvers.user_token_resolver import UserTokenResolver
 from .server import Server
 
 
@@ -12,7 +13,7 @@ class User:
     id: str
     telegram_id: str
     name: Optional[str]
-    servers: List[Server] = strawberry.field(
-        resolver=UserServers.fn, description=UserServers.desc
-    )
-
+    # servers()
+    servers: List[Server] = strawberry.field(**UserServersResolver.pack())
+    # token, if logged in
+    token: Optional[str] = strawberry.field(**UserTokenResolver.pack())
