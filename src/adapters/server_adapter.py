@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING, Annotated
 
 import strawberry
 from src.adapters.base_adapter import BaseAdapter
-from src.models.server import Server as ServerModel
+from src.models.server.server import Server as ServerModel
 
 if TYPE_CHECKING:
     from src.api.types.server import Server as ServerType

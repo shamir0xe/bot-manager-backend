@@ -4,7 +4,7 @@ from src.actions.user.create_user import CreateUser
 from src.adapters.user_adapter import UserAdapter
 from src.api.types.user import User as UserType
 from src.resolvers.base_resolver import BaseResolver
-from src.authorizations.authorization import auth, role
+from src.authorizations.authorization import role
 
 
 class CreateUserResolver(BaseResolver):

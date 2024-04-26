@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import PositiveInt
 
-from src.models.server import Server
+from src.models.server.server import Server
 from src.finders.server_finder import ServerFinder
 
 

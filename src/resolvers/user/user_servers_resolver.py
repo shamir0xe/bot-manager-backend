@@ -5,7 +5,6 @@ from src.finders.server_finder import ServerFinder
 from src.adapters.server_adapter import ServerAdapter
 from src.resolvers.base_resolver import BaseResolver
 from src.api.types.server import Server as ServerType
-from src.models.server import Server
 
 
 if TYPE_CHECKING:

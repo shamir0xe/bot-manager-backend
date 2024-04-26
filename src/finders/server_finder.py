@@ -1,5 +1,5 @@
 from typing import List, Optional
-from src.models.server import Server
+from src.models.server.server import Server
 
 
 class ServerFinder:

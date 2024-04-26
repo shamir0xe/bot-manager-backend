@@ -3,7 +3,7 @@ import strawberry
 
 from src.adapters.server_adapter import ServerAdapter
 from src.resolvers.base_resolver import BaseResolver
-from src.models.server import Server as ServerModel
+from src.models.server.server import Server as ServerModel
 
 if TYPE_CHECKING:
     from src.api.types.server import Server

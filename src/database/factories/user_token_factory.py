@@ -1,7 +1,7 @@
 import uuid
 from typing import List
 from src.database.factories.base_factory import BaseFactory
-from src.models.user_token import UserToken
+from src.models.user.user_token import UserToken
 
 
 class UserTokenFactory(BaseFactory):

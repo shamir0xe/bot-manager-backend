@@ -1,6 +1,5 @@
-from redis_om import Migrator
 from src.finders.user_roles_finder import UserRolesFinder
-from src.models.user_roles import UserRoles
+from src.models.user.user_roles import UserRoles
 from src.database.factories.user_factory import UserFactory
 from src.finders.user_finder import UserFinder
 from src.helpers.state_manager import State
@@ -12,18 +11,14 @@ class SuperAdminSeeder:
             "telegram_id": "@shamir0xe",
             "name": "Amirhossein Shapoori",
         },
-        {
-            "telegram_id": "@mobinadrb",
-            "name": "Mobina Darabi"
-        }
+        {"telegram_id": "@mobinadrb", "name": "Mobina Darabi"},
+        {"telegram_id": "@botfather", "name": "Bot father, from another mother"},
     ]
 
     @staticmethod
     def seed() -> State:
-        Migrator().run()
         for user_data in SuperAdminSeeder.super_admins:
             # updating/creating user info
-            print("# updating/creating user info")
             user = UserFinder.by_telegram_id(user_data["telegram_id"])
             if not user:
                 user = UserFactory().get_one()
@@ -34,7 +29,6 @@ class SuperAdminSeeder:
             if not isinstance(user.pk, str):
                 return State.failure("Can't assign pk to the user")
 
-            print("# updating/creating super_admins roles")
             # updating/creating super_admins roles
             try:
                 user_roles = UserRolesFinder.with_user_id(user.pk)

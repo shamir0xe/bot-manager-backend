@@ -1,15 +1,17 @@
 from typing import Optional
 import strawberry
 from src.api.types.response import Response
-from src.resolvers.run_seeders_resolver import RunSeedersResolver
 from src.api.types.user import User
+from src.api.types.bot import Bot
+# from src.api.types.server import Server
 
-from src.api.types.server import Server
-from src.resolvers.create_user_resolver import CreateUserResolver
-
-# from src.resolvers.create_server_resolver import CreateServerResolver
-from src.resolvers.login_resolver import LoginResolver
-from src.resolvers.logout_resolver import LogoutResolver
+from src.resolvers.bot.create_bot_resolver import CreateBotResolver
+from src.resolvers.database.run_seeders_resolver import RunSeedersResolver
+from src.resolvers.user.create_user_resolver import CreateUserResolver
+# from src.resolvers.server.create_server_resolver import CreateServerResolver
+from src.resolvers.auth.login_resolver import LoginResolver
+from src.resolvers.auth.logout_resolver import LogoutResolver
+from src.resolvers.bot.update_bot_resolver import UpdateBotResolver
 
 
 @strawberry.type
@@ -18,8 +20,14 @@ class Mutation:
     logout: Response = strawberry.field(**LogoutResolver.pack())
     run_seeders: Response = strawberry.field(**RunSeedersResolver.pack())
 
-    # @auth @role(admin)
+    # @role(admin)
     create_user: User = strawberry.field(**CreateUserResolver.pack())
+
+    # @role(admin)
+    create_bot: Bot = strawberry.field(**CreateBotResolver.pack())
+
+    # @auth
+    update_bot: Bot = strawberry.field(**UpdateBotResolver.pack())
 
     # @auth @admin create_server(host, port)
     # create_server: Server = strawberry.field(**CreateServerResolver.pack())

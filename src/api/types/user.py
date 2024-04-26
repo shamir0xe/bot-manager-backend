@@ -1,8 +1,8 @@
 from __future__ import annotations
 from typing import List, Optional
 import strawberry
-from src.resolvers.user_servers_resolver import UserServersResolver
-from src.resolvers.user_token_resolver import UserTokenResolver
+from src.resolvers.user.user_servers_resolver import UserServersResolver
+from src.resolvers.user.user_token_resolver import UserTokenResolver
 from .server import Server
 
 

@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Annotated, List
 import strawberry
-from src.resolvers.server_sub_servers import ServerSubServers
-from src.resolvers.server_owner_resolver import ServerOwnerResolver
+from src.resolvers.server.server_sub_servers import ServerSubServers
+from src.resolvers.server.server_owner_resolver import ServerOwnerResolver
 
 if TYPE_CHECKING:
     from src.api.types.user import User

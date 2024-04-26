@@ -1,5 +1,5 @@
 from src.adapters.base_adapter import BaseAdapter
-from src.models.user import User as UserModel
+from src.models.user.user import User as UserModel
 from src.api.types.user import User as UserType
 
 

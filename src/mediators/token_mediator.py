@@ -5,7 +5,7 @@ from src.helpers.types.status_types import StatusType
 from src.delegators.datetime_delegator import DatetimeDelegator
 from src.finders.user_token_finder import UserTokenFinder
 from src.database.factories.user_token_factory import UserTokenFactory
-from src.models.user_token import UserToken
+from src.models.user.user_token import UserToken
 from src.helpers.state_manager import State
 
 

@@ -1,12 +1,12 @@
 from redis_om import Migrator
-from src.models.user_token import UserToken
+from src.models.user.user_token import UserToken
 
 
 class UserTokenFinder:
     @staticmethod
     def with_user_id(user_id: str) -> UserToken:
         print(f"searching for {user_id}")
-        Migrator().run()
+        # Migrator().run()
         user_token = UserToken.find(UserToken.user_id == user_id).first()
         print(user_token)
         if not isinstance(user_token, UserToken):

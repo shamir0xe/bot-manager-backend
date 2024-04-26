@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import List
 from faker.providers import internet
 from .base_factory import BaseFactory
-from src.models.server import Server
+from src.models.server.server import Server
 
 
 @dataclass
