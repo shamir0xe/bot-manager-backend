@@ -21,3 +21,7 @@ class Env:
     @property
     def session_key(self):
         return self.env.session.secret_key
+
+    @property
+    def db(self):
+        return self.env.db

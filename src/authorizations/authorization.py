@@ -7,6 +7,7 @@ from src.helpers.types.user_roles import UserRoles
 from src.authorizations.handlers.bearer_token_handler import BearerTokenHandler
 from src.authorizations.handlers.session_handler import SessionHandler
 from src.helpers.types.authentication_types import AuthenticationTypes
+from src.types.exception_types import ExceptionTypes
 
 
 class Authorization:
@@ -38,7 +39,7 @@ class Authorization:
     @staticmethod
     def _get_info(args: Dict) -> strawberry.Info:
         if "info" not in args or not isinstance(args["info"], strawberry.Info):
-            raise Exception("provide 'info' as an argument")
+            raise Exception(ExceptionTypes.INVALID_ARGUMENTS)
         return args["info"]
 
     @staticmethod
@@ -58,7 +59,7 @@ class Authorization:
                 try:
                     user_roles = UserRolesFinder.with_user_id(session_handler.user_id)
                 except Exception:
-                    raise Exception("Not permitted")
+                    raise Exception(ExceptionTypes.NOT_PERMITTED)
                 if EnumMapper.map(user_role) not in user_roles.roles:
                     raise Exception(f"You need to be a {user_role} to proceed")
                 return func(*args, **kwargs)

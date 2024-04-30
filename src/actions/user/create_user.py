@@ -6,7 +6,7 @@ from src.finders.user_finder import UserFinder
 
 class CreateUser:
     @staticmethod
-    def with_telegram_id(telegram_id: str, name: Optional[str]) -> User:
+    def with_telegram_id(telegram_id: str, name: Optional[str] = None) -> User:
         user = UserFinder.by_telegram_id(telegram_id)
         if not user:
             if name:

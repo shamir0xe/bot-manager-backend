@@ -15,5 +15,18 @@ app = Starlette(debug=Env().debug, middleware=middleware)
 app.mount("/api", graphql_app)
 Migrator().run()
 
-# usage:
+## usage:
+## 1) create the docker network layer:
+##  $ docker create network network-backend
+## 2) start docker containers and attaching them to the
+## created network:
+##  $ docker run -d --name redis-container --network=network-backend
+##    --publish=6379:6379 redis/redis-stack:latest
+## 3) start backend container:
+##  $ docker run -d --name backend-container --network=network-backend
+##    --publish=8000:8000  -v .:/app bot-backend
+##
+
+
+
 # uvicorn server:app

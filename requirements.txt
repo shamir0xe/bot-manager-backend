@@ -5,3 +5,5 @@ strawberry-graphql[asgi]
 faker
 redis_om
 pylib-0xe
+itsdangerous
+
