@@ -1,5 +1,6 @@
 from typing import Optional
 import strawberry
+from src.resolvers.bot.update_bot_session_resolver import UpdateBotSessionResolver
 from src.api.types.bot_session import BotSession
 from src.resolvers.bot.request_bot_session_resolver import RequestBotSessionResolver
 from src.api.types.response import Response
@@ -39,7 +40,7 @@ class Mutation:
     )
 
     # @role(admin)
-    # update_bot_session: BotSession = strawberry.field(**UpdateBotSessionResolver.pack())
+    update_bot_session: BotSession = strawberry.field(**UpdateBotSessionResolver.pack())
 
     # @auth @admin create_server(host, port)
     # create_server: Server = strawberry.field(**CreateServerResolver.pack())
