@@ -1,4 +1,5 @@
 import strawberry
+from src.finders.bot_session_finder import BotSessionFinder
 from src.adapters.bot_session_adapter import BotSessionAdapter
 from src.actions.user.create_user import CreateUser
 from src.finders.bot_finder import BotFinder
@@ -29,6 +30,13 @@ class RequestBotSessionResolver(BaseResolver):
             user = CreateUser.with_telegram_id(telegram_id)
             if not user:
                 raise Exception(ExceptionTypes.INTERNAL_ERROR)
+        if not user.pk:
+            raise Exception(ExceptionTypes.INTERNAL_ERROR)
+        # check if the last user's session of this bot is empty
+        bot_session = BotSessionFinder.last_user_session(bot_id=bot.id, user_id=user.pk)
+        if bot_session and not bot_session.data:
+            # if the conditions was true, return the last session
+            return BotSessionAdapter.plug(bot_session)
         data = {"user_id": user.pk, "bot_id": bot.id, "data": ""}
         bot_session = BotSession(**data)
         bot_session.save()
