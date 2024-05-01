@@ -13,3 +13,4 @@ class ExceptionTypes(Enum):
     INVALID_ARGUMENTS = "invalid-arguments"
     NOT_PERMITTED = "not-permitted"
     INTERNAL_ERROR = "internal-error"
+    NO_OWNER_FOUND = "no-owner-found"

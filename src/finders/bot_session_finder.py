@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 from src.models.bot.bot_session import BotSession
 
 
@@ -10,3 +10,16 @@ class BotSessionFinder:
         except Exception:
             return None
         return bot_session
+
+    @staticmethod
+    def bot_sessions(bot_id: str) -> List[BotSession]:
+        sessions = []
+        try:
+            sessions = BotSession.find(BotSession.bot_id == bot_id).all()
+        except Exception:
+            return []
+        result = []
+        for session in sessions:
+            if isinstance(session, BotSession):
+                result += [session]
+        return result

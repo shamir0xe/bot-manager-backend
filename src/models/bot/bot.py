@@ -1,9 +1,9 @@
 from typing import Optional
-from redis_om import Field, JsonModel
-from src.models.utility.base_redis_meta_class import BaseRedisMetaClass
+from redis_om import Field
+from src.models.utility.base_redis_model import BaseRedisModel
 
 
-class Bot(JsonModel):
+class Bot(BaseRedisModel):
     id: str = Field(index=True, primary_key=True)
     name: str
     token: str
@@ -11,5 +11,5 @@ class Bot(JsonModel):
     port: Optional[int]
     pages: Optional[str]
 
-    class Meta(BaseRedisMetaClass):
+    class Meta:  # type: ignore
         model_key_prefix = "bots"

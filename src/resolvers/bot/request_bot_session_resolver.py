@@ -34,6 +34,4 @@ class RequestBotSessionResolver(BaseResolver):
         bot_session.save()
         if not bot_session.pk:
             raise Exception(ExceptionTypes.INTERNAL_ERROR)
-        return BotSessionAdapter.plug_with_objects(
-            model=bot_session, user=user, bot=bot
-        )
+        return BotSessionAdapter.plug(bot_session)
