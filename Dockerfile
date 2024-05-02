@@ -10,6 +10,9 @@ WORKDIR /app
 # [production] Copy the current directory contents into the container at /app
 COPY . /app
 
+# [production] Copy the env file
+COPY configs/env.json /app/configs/env.json
+
 # [develop] Copy the requirements.txt file into the container
 # COPY requirements.txt .
 
