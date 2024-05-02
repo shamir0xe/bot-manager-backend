@@ -12,9 +12,10 @@ echo 'Cloning repository'
 [ -d "$release_dir" ] || mkdir -p "$release_dir"
 git clone --depth 1 $repository "$new_release_dir" --recursive
 
-echo 'Linking Environments'
+echo 'Linking/Copying Environments'
 rm -rf "$new_release_dir"/configs/env.json || true
-ln -nfs "$app_dir"/configs/env.json "$new_release_dir"/configs/env.json
+cp "$app_dir"/configs/env.json "$new_release_dir"/configs/env.json
+# ln -nfs "$app_dir"/configs/env.json "$new_release_dir"/configs/env.json
 
 # echo 'Linking Assets'
 # rm -rf "$new_release_dir"/assets
