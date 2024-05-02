@@ -1,5 +1,7 @@
 from typing import Optional
 import strawberry
+from src.resolvers.bot.release_self_bot_resolver import ReleaseSelfBotResolver
+from src.resolvers.bot.release_bot_resolver import ReleaseBotResolver
 from src.resolvers.bot.update_bot_session_resolver import UpdateBotSessionResolver
 from src.api.types.bot_session import BotSession
 from src.resolvers.bot.request_bot_session_resolver import RequestBotSessionResolver
@@ -41,6 +43,12 @@ class Mutation:
 
     # @role(admin)
     update_bot_session: BotSession = strawberry.field(**UpdateBotSessionResolver.pack())
+
+    # @role(admin)
+    release_bot: Bot = strawberry.field(**ReleaseBotResolver.pack())
+
+    # @auth
+    release_self_bot: User = strawberry.field(**ReleaseSelfBotResolver.pack())
 
     # @auth @admin create_server(host, port)
     # create_server: Server = strawberry.field(**CreateServerResolver.pack())
