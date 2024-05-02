@@ -27,11 +27,11 @@ echo 'Linking current release'
 ln -nfs "$new_release_dir" "$output_dir"/current
 
 # echo 'Stop and remove the previous server'
-# cd "$new_release_dir" || exit
-# docker container stop bot-backend-container || true
-# docker container rm bot-backend-container || true
-
-echo 'running the new container'
 cd "$new_release_dir" || exit
-docker compose up -d --build
+docker container stop bot-backend-container || true
+docker container rm bot-backend-container || true
+
+echo 'Running the new container'
+# cd "$new_release_dir" || exit
+docker compose up -d
 
