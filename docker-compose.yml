@@ -1,14 +1,17 @@
 version: "3.9"
 services:
   bot-backend:
-    image: "bot-backend:latest"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: "bot-backend:latest"
     container_name: bot-backend-container
     networks:
       - network-backend
     ports:
       - 8000:8000
-    volumes:
-      - .:/app
+    # volumes:
+      # - .:/app
     deploy:
       replicas: 1
       restart_policy:
