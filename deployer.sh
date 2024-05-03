@@ -37,6 +37,6 @@ docker build -t bot-backend .
 echo 'Run the backend container'
 docker container stop backend-container || true
 docker container rm backend-container || true
-docker run -d --name backend-container --network=network-backend --publish 8000:8000 bot-backend:latest
+docker run -d --name backend-container --network=host --publish 8000:8000 bot-backend:latest
 
 
