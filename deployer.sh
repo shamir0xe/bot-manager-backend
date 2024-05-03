@@ -27,12 +27,16 @@ unlink "$output_dir"/current
 echo 'Linking current release'
 ln -nfs "$new_release_dir" "$output_dir"/current
 
-# echo 'Stop and remove the previous server'
+echo 'Remove the previous image'
 cd "$new_release_dir" || exit
-docker container stop bot-backend-container || true
-docker container rm bot-backend-container || true
+docker image rm bot-backend --force || true
 
-echo 'Running the new container'
-# cd "$new_release_dir" || exit
-docker compose up -d
+echo 'Creating the new image'
+docker build -t bot-backend .
+
+echo 'Run the backend container'
+docker container stop backend-container || true
+docker container rm backend-container || true
+docker run -d --name backend-container --network=network-backend --publish 8000:8000 bot-backend:latest
+
 
