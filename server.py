@@ -1,30 +1,23 @@
-import os
-from importlib import import_module
-from os.path import basename
 from redis_om import Migrator
 from starlette.applications import Starlette
 from strawberry.asgi import GraphQL
-from src.models.bot.user_bot import UserBot
-from src.models.user.user_roles import UserRoles
 from src.facades.env import Env
 from src.api.schema import schema
 from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.middleware.cors import CORSMiddleware
 
 # from src.policies.authentication import GuardAuthHandler
 
 
 graphql_app = GraphQL(schema)
-middleware = [Middleware(SessionMiddleware, secret_key=Env().session_key)]
+middleware = [
+    Middleware(SessionMiddleware, secret_key=Env().session_key),
+    Middleware(CORSMiddleware, allow_origins=["*"]),
+]
 app = Starlette(debug=Env().debug, middleware=middleware)
 app.mount("/api", graphql_app)
-
 Migrator().run()
-# Migrator(os.path.abspath(os.path.join(__file__, "src", "models", "server"))).run()
-# Migrator(os.path.abspath(os.path.join(__file__, "src", "models", "bot"))).run()
-# Migrator(UserRoles).run()
-# Migrator(UserBot).run()
-
 
 ## usage:
 ## 1) create the docker network layer:
