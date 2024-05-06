@@ -13,7 +13,12 @@ from starlette.middleware.cors import CORSMiddleware
 graphql_app = GraphQL(schema)
 middleware = [
     Middleware(SessionMiddleware, secret_key=Env().session_key),
-    Middleware(CORSMiddleware, allow_origins=["*"]),
+    Middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_methods=["GET", "POST"],
+        allow_headers=["*"],
+    ),
 ]
 app = Starlette(debug=Env().debug, middleware=middleware)
 app.mount("/api", graphql_app)
