@@ -15,7 +15,7 @@ class Query:
     reverse_echo: str = strawberry.field(**EchoResolver.pack())
 
     # @auth
-    reqeust_bot: Bot = strawberry.field(**RequestBotResolver.pack())
+    request_bot: Bot = strawberry.field(**RequestBotResolver.pack())
 
     # @admin
     bot_info: Bot = strawberry.field(**BotInfoResolver.pack())
