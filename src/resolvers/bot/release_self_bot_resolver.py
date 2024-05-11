@@ -16,8 +16,6 @@ class ReleaseSelfBotResolver(BaseResolver):
     @staticmethod
     def fn(info: strawberry.Info = strawberry.UNSET) -> User:
         user = Auth(info).user
-        if not user or not user.pk:
-            raise Exception(ExceptionTypes.NO_SUCH_OBJECT_EXISTS)
         bot = BotFinder.by_matched_user(user.pk)
         if bot:
             user_bots = UserBot.find(

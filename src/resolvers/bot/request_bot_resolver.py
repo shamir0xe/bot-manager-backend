@@ -16,8 +16,6 @@ class RequestBotResolver(BaseResolver):
     @staticmethod
     def fn(info: strawberry.Info = strawberry.UNSET) -> Bot:
         user = Auth(info).user
-        if not user or not user.pk:
-            raise Exception(ExceptionTypes.LOGIN_NEEDED)
         bot = BotFinder.by_matched_user(user.pk)
         if bot:
             ## already have a bot

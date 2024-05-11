@@ -1,5 +1,5 @@
 import strawberry
-from src.actions.bot.validate_bot import ValidateBot
+from src.actions.bot.update_bot import UpdateBot
 from src.adapters.bot_adapter import BotAdapter
 from src.api.inputs.bot_update_input import BotUpdateInput
 from src.api.types.bot import Bot
@@ -20,22 +20,8 @@ class UpdateBotResolver(BaseResolver):
         info: strawberry.Info = strawberry.UNSET,
     ) -> Bot:
         user = Auth(info).user
-        if not user or not user.pk:
-            raise Exception(ExceptionTypes.LOGIN_NEEDED)
         bot = BotFinder.by_matched_user(user.pk)
         if not bot:
             raise Exception(ExceptionTypes.NO_SUCH_PAIR_FOUND)
-        if bot_input.name:
-            bot.name = bot_input.name
-        if bot_input.token:
-            bot.token = bot_input.token
-        if bot_input.pages:
-            bot.pages = bot_input.pages
-        if bot_input.host:
-            bot.host = bot_input.host
-        if bot_input.port:
-            bot.host = bot_input.host
-        if not ValidateBot.validate(bot):
-            raise Exception(ExceptionTypes.VALIDATOR_ERROR)
-        bot.save()
+        bot = UpdateBot.update(bot=bot, input=bot_input)
         return BotAdapter.plug(bot)

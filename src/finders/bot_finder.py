@@ -1,8 +1,7 @@
 from typing import Optional
-from redis_om import Migrator, NotFoundError
+from redis_om import NotFoundError
 from src.models.bot.bot import Bot
 from src.models.bot.user_bot import UserBot
-from src.types.exception_types import ExceptionTypes
 
 
 class BotFinder:
@@ -14,7 +13,9 @@ class BotFinder:
             return None
 
     @staticmethod
-    def by_matched_user(user_id: str) -> Optional[Bot]:
+    def by_matched_user(user_id: Optional[str]) -> Optional[Bot]:
+        if not user_id:
+            return None
         # Migrator().run()
         user_bot = None
         try:

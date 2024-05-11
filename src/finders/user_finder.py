@@ -1,5 +1,5 @@
 from typing import List, Optional
-from redis_om import Migrator, NotFoundError
+from redis_om import NotFoundError
 from src.models.bot.user_bot import UserBot
 from src.models.user.user import User
 
