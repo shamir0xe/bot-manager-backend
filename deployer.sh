@@ -35,8 +35,16 @@ echo 'Creating the new image'
 docker build -t bot-backend .
 
 echo 'Run the backend container'
-docker container stop backend-container || true
-docker container rm backend-container || true
-docker run -d --name backend-container --network=host --publish 8000:8000 bot-backend:latest
+# docker container stop backend-container || true
+# docker container rm backend-container || true
+# docker run -d --name backend-container --network=host --publish 8000:8000 bot-backend:latest
+docker service stop backend-service || true
+docker service rm backend-service || true
+docker service create \
+    --name backend-service \
+    --network bots-overlay-backend \
+    --publish published=8000,target=8000 \
+    bot-backend:latest
+# docker service update --force backend-service
 
 
