@@ -14,7 +14,7 @@ ADD . /app
 # COPY configs/env.json /app/configs/env.json
 
 # [develop] Copy the requirements.txt file into the container
-# COPY requirements.txt .
+COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
