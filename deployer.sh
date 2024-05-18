@@ -42,7 +42,7 @@ docker service stop backend-service || true
 docker service rm backend-service || true
 docker service create \
     --name backend-service \
-    --network bots-overlay-backend \
+    --network bots-overlay-network \
     --publish published=8000,target=8000 \
     bot-backend:latest
 # docker service update --force backend-service
