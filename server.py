@@ -1,40 +1,30 @@
+from contextlib import asynccontextmanager
 from redis_om import Migrator
-from starlette.applications import Starlette
-from strawberry.asgi import GraphQL
+from src.actions.database.run_seeders import RunSeeders
 from src.facades.env import Env
 from src.api.schema import schema
-from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.middleware.cors import CORSMiddleware
+from strawberry.fastapi import GraphQLRouter
+from fastapi import FastAPI
 
-# from src.policies.authentication import GuardAuthHandler
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    RunSeeders.run()
+    yield
 
 
-graphql_app = GraphQL(schema)
-middleware = [
-    Middleware(SessionMiddleware, secret_key=Env().session_key),
-    Middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_methods=["GET", "POST"],
-        allow_headers=["*"],
-    ),
-]
-app = Starlette(debug=Env().debug, middleware=middleware)
-app.mount("/api", graphql_app)
+graphql_app = GraphQLRouter(schema)
+app = FastAPI(lifespan=lifespan)
+app.add_middleware(SessionMiddleware, secret_key=Env().session_key)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
+app.include_router(graphql_app, prefix="/api")
+
 Migrator().run()
 
-## usage:
-## 1) create the docker network layer:
-##  $ docker create network network-backend
-## 2) start docker containers and attaching them to the
-## created network:
-##  $ docker run -d --name redis-container --network=network-backend
-##    --publish=6379:6379 redis/redis-stack:latest
-## 3) start backend container:
-##  $ docker run -d --name backend-container --network=network-backend
-##    --publish=8000:8000  -v .:/app bot-backend
-##
-
-
-# uvicorn server:app

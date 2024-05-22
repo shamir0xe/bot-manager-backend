@@ -6,6 +6,7 @@ faker==24.11.0
 redis_om==0.2.2
 pydantic==2.4.2
 pydantic-core==2.10.1
+fastapi
 pylib-0xe
 itsdangerous
 h11
