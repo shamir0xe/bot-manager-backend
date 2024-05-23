@@ -23,6 +23,7 @@ from src.resolvers.bot.update_bot_resolver import UpdateBotResolver
 @strawberry.type
 class Mutation:
     login: Optional[User] = strawberry.field(**LoginResolver.pack())
+    otp: Optional[User] = strawberry.field(**OtpResolver.pack())
     logout: Response = strawberry.field(**LogoutResolver.pack())
 
     # @role(admin)

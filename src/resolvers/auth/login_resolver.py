@@ -1,4 +1,5 @@
 import strawberry
+from actions.session.clear_session import ClearSession
 from src.authorizations.handlers.session_handler import SessionHandler
 from src.helpers.strawberry.strawberry_helper import StrawberryHelper
 from src.adapters.user_adapter import UserAdapter
@@ -13,10 +14,8 @@ class LoginResolver(BaseResolver):
 
     @staticmethod
     def fn(telegram_id: str = "", info: strawberry.Info = strawberry.UNSET) -> User:
-        SessionHandler(StrawberryHelper.extract_request(info).session).clear_session()
-        user_model = UserFinder.by_telegram_id(telegram_id)
-        if not user_model:
-            raise Exception("No user with this telegram_id is found")
-        user = UserAdapter.plug(user_model)
-        LoginUser.with_user_id(user.id)
-        return user
+        ClearSession.clear(info=info)
+        user_model = LoginUser.with_telegram_id(telegram_id=telegram_id)
+        return UserAdapter.plug(user_model)
+
+        

@@ -1,6 +1,8 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 
+from finders.user_finder import UserFinder
+from models.user.user import User
 from src.helpers.types.status_types import StatusType
 from src.delegators.datetime_delegator import DatetimeDelegator
 from src.finders.user_token_finder import UserTokenFinder

@@ -4,7 +4,7 @@ from src.models.utility.base_redis_model import BaseRedisModel
 
 
 class User(BaseRedisModel):
-    telegram_id: str = Field(index=True)
+    telegram_id: str = Field(index=True, primary_key=True)
     name: Optional[str] = Field(index=True)
     server_ids: Optional[List[str]] = Field(index=True, default=[])
 
