@@ -1,15 +1,16 @@
 from typing import Optional
-from redis_om import Field
-from src.models.utility.base_redis_model import BaseRedisModel
+
+from pydantic import Field
+from src.models.utility.decorated_base_model import DecoratedBaseModel
 
 
-class Bot(BaseRedisModel):
-    id: str = Field(index=True, primary_key=True)
+class Bot(DecoratedBaseModel):
+    id: str # pk
     name: str
     token: str
-    host: Optional[str]
-    port: Optional[int]
-    pages: Optional[str]
+    host: Optional[str] = Field(default="")
+    port: Optional[int] = Field(default=0)
+    pages: Optional[str] = Field(default="")
 
-    class Meta:  # type: ignore
-        model_key_prefix = "bots"
+    # class Meta:  # type: ignore
+    #     model_key_prefix = "bots"

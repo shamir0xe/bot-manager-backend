@@ -11,3 +11,4 @@ pylib-0xe
 itsdangerous
 h11
 redis
+sqlalchemy

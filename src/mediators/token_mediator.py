@@ -1,8 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 
-from finders.user_finder import UserFinder
-from models.user.user import User
 from src.helpers.types.status_types import StatusType
 from src.delegators.datetime_delegator import DatetimeDelegator
 from src.finders.user_token_finder import UserTokenFinder
@@ -70,18 +68,17 @@ class TokenMediator:
     def revoke_token(self) -> TokenMediator:
         if not self.state.is_ok:
             return self
-        self.user_token = UserTokenFactory().get_one()
+        self.user_token.token = UserTokenFactory().get_one().token
         self.user_token.user_id = self.user_id
         self.user_token.expiration_date = DatetimeDelegator.expiration_from_now()
-        print("here")
+        print("revoking token")
         return self
 
     def save(self) -> TokenMediator:
         if not self.state.is_ok:
             return self
-        self.user_token.save()
+        UserTokenRepository().save(self.user_token)
         print("after save")
-        print(self.user_token.Meta.index_name)
         return self
 
     def get_token(self) -> str:

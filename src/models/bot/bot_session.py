@@ -1,12 +1,11 @@
-from redis_om import Field
-
-from src.models.utility.base_redis_model import BaseRedisModel
+from src.models.utility.decorated_base_model import DecoratedBaseModel
 
 
-class BotSession(BaseRedisModel):
-    user_id: str = Field(index=True)
-    bot_id: str = Field(index=True)
+class BotSession(DecoratedBaseModel):
+    id: str # pk
+    user_id: str
+    bot_id: str
     data: str
 
-    class Meta:  # type: ignore
-        model_key_prefix = "bot_sessions"
+    # class Meta:  # type: ignore
+    #     model_key_prefix = "bot_sessions"

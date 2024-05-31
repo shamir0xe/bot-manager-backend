@@ -1,11 +1,12 @@
 from typing import List
-from redis_om import Field
-from src.models.utility.base_redis_model import BaseRedisModel
+
+from pydantic import Field
+from src.models.utility.decorated_base_model import DecoratedBaseModel
 
 
-class UserRoles(BaseRedisModel):
-    user_id: str = Field(index=True, primary_key=True)
-    roles: List[str] = Field(index=True)
+class UserRoles(DecoratedBaseModel):
+    user_id: str # pk
+    roles: List[str] = Field(default=[])
 
-    class Meta:  # type: ignore
-        model_key_prefix = "user_roles"
+    # class Meta:  # type: ignore
+    #     model_key_prefix = "user_roles"
