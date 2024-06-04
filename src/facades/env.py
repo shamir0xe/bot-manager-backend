@@ -1,6 +1,7 @@
 from src.helpers.config.config import Config
 from src.helpers.decorators.singleton import singleton
 from src.models.utility.env_data import EnvData
+from src.types.repository_types import RepositoryTypes
 
 
 @singleton
@@ -25,3 +26,7 @@ class Env:
     @property
     def db(self):
         return self.env.db
+
+    @property
+    def repository(self) -> RepositoryTypes:
+        return self.env.repository

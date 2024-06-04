@@ -1,5 +1,6 @@
 from typing import Optional
 
+from src.facades.repository.user.user_repository import UserRepository
 from src.models.user.user import User
 from src.finders.user_finder import UserFinder
 
@@ -13,7 +14,7 @@ class CreateUser:
                 user = User(telegram_id=telegram_id, name=name)
             else:
                 user = User(telegram_id=telegram_id)
-            user.save()
+            user = UserRepository().create(user)
         if not isinstance(user, User):
             raise Exception("Cannot create the user")
         return user

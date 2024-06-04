@@ -1,11 +1,14 @@
-from typing import Optional
+from typing import TYPE_CHECKING, Annotated, Optional
 
 from pydantic import Field
 from src.models.utility.decorated_base_model import DecoratedBaseModel
 
+if TYPE_CHECKING:
+    from src.models.user.user import User
+
 
 class Bot(DecoratedBaseModel):
-    id: str # pk
+    id: str  # pk
     name: str
     token: str
     host: Optional[str] = Field(default="")

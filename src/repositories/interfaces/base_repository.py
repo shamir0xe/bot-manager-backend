@@ -4,7 +4,7 @@ from typing import Generic, List, TypeVar
 T = TypeVar('T')
 K = TypeVar('K')
 
-class Repository(ABC, Generic[T, K]):
+class BaseRepository(ABC, Generic[T, K]):
     @abstractmethod
     def create(self, entity: T) -> T:
         pass

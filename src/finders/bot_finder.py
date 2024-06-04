@@ -8,7 +8,7 @@ class BotFinder:
     @staticmethod
     def by_id(id: str) -> Optional[Bot]:
         try:
-            return Bot.get(id)
+            return BotRepository().read_by_id(id)
         except NotFoundError:
             return None
 
